@@ -3,19 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
-</head>
-<body>
-
-
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
-        <div class="hand second-hand"></div>
-      </div>
-    </div>
-
-
   <style>
     html {
       background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=5);
@@ -56,18 +43,95 @@
       transform: translateY(-3px); /* account for the height of the clock hands */
     }
 
-    .hand {
+    .hours-hand {
+      width: 30%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      background-color: blue;
+      top: 50%;
+      transform-origin: 100%;
+      margin-left: 20%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    .minutes-hand {
+      width: 40%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      background-color: yellow;
+      top: 50%;
+      transform-origin: 100%;
+      margin-left: 10%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    .seconds-hand {
       width: 50%;
       height: 6px;
       background: black;
       position: absolute;
+      background-color: green;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+    .fast {
+    transition: all 0s;
     }
 
+
   </style>
+</head>
+<body>
 
-  <script>
 
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hours-hand"></div>
+        <div class="hand minutes-hand"></div>
+        <div class="hand seconds-hand"></div>
+      </div>
+    </div>
+
+  <script type="text/javascript">
+    const secondHand = document.querySelector('.seconds-hand');
+    const minHand = document.querySelector('.minutes-hand');
+    const hourHand = document.querySelector('.hours-hand');
+
+    function setDate() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      const minutes = now.getMinutes();
+      const minutesDegrees = ((minutes / 60) * 360) + 90;
+      const hours = now.getHours();
+      const hoursDegrees = ((hours / 12) * 360) + 90;
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+      if(minutes===0) secondHand.classList.add('fast');
+        console.log("added");
+      if(minutes===1) secondHand.classList.remove('fast');
+        console.log("removed");
+      minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+      if(minutes===0) minHand.classList.add('fast');
+        console.log("added");
+      if(minutes===1) minHand.classList.remove('fast');
+        console.log("removed");
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+      if(minutes===0) hourHand.classList.add('fast');
+        console.log("added");
+      if(minutes===1) hourHand.classList.remove('fast');
+        console.log("removed");
+      }
+
+    setInterval(setDate, 1000);
 
   </script>
 </body>
