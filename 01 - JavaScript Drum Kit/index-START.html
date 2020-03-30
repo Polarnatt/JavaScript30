@@ -64,11 +64,13 @@
     audio.currentTime = 0;
     audio.play();
     key.classList.add('playing');
+    // key.classList.add('play');
   }
 
   function removeTransition(e) {
     if(e.propertyName !== 'transform') return;
     this.classList.remove('playing');
+    // this.classList.remove('play');
   }
 
   const keys = document.querySelectorAll('.key');
